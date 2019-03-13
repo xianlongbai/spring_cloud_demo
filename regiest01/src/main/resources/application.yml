@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: eureka-server-ha   #ha服务名称
+  profiles:
+    active: regiest01    #active节点
+

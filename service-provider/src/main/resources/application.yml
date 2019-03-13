@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: "service-provider-demo"
+  zipkin:
+    base-url: http://192.168.0.110:8110
+  sleuth:
+    sampler:
+      percentage: 1
+#  profiles:
+#    active: provider01    #active节点

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: hystrix-monitor
+server:
+  port: 8888
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://admin:admin@regiest01:10010/eureka/,http://admin:admin@regiest02:10020/eureka/,http://admin:admin@regiest03:10030/eureka/
+

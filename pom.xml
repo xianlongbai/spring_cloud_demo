@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.bxl</groupId>
+	<artifactId>boot_cloud_demo</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>boot_cloud_demo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
+		<spring-boot.version>1.5.10.RELEASE</spring-boot.version>
+		<junit.version>4.12</junit.version>
+	</properties>
+
+	<!--坑：这里的version 不能使用${spring-boot.version},除非将properties位置放在最上面-->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<modules>
+		<module>regiest01</module>
+		<module>regiest02</module>
+		<module>server01</module>
+		<module>server02</module>
+		<module>Consumer01</module>
+		<module>Consumer02</module>
+		<module>consumer03</module>
+		<module>service-api</module>
+		<module>service-provider</module>
+		<module>hystrix-monitor</module>
+		<module>zuul-server</module>
+		<module>security-manager</module>
+		<module>hystrix-turbine</module>
+		<module>sleuth-zipkin</module>
+		<module>config-server</module>
+		<!--<module>reverse-proxy</module>-->
+	</modules>
+
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!--<dependency>-->
+				<!--<groupId>org.springframework.cloud</groupId>-->
+				<!--<artifactId>spring-cloud-starter-bus-amqp</artifactId>-->
+			<!--</dependency>-->
+
+			<!--<dependency>-->
+				<!--<groupId>org.springframework.cloud</groupId>-->
+				<!--<artifactId>spring-cloud-starter-bus-kafka</artifactId>-->
+			<!--</dependency>-->
+
+			<!--springboot相关依赖-->
+			<!--<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.5.10.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>-->
+			<!--springcloud相关依赖-->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!--<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-turbine</artifactId>
+			</dependency>-->
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

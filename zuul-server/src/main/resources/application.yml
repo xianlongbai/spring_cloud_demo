@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: zuul-server
+server:
+  port: 8077
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://admin:admin@regiest01:10010/eureka/,http://admin:admin@regiest02:10020/eureka/,http://admin:admin@regiest03:10030/eureka/
+
+#上面这段配置表示，/api-user/开头的url请求，将转发到service-provider这个微服务上，
+#/api-order/开头的url请求，将转发到service-consumer这个微服务上。
+#其实zuul实现负载均衡很简单，使用serviceId进行绑定后，如果有多个相同的serviceid，
+#则会进行轮询的方式进行访问。这个在下文会有具体的结果截图。
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      service-id: consumer-feign
+      sensitive-headers:
+    api-b:
+      path: /api-b/**
+      service-id: consumer-ribbon
+
+
+# routes to url  这里是绑定具体的ip地址
+#zuul.routes.api-a-url.path=/api-a-url/**
+#zuul.routes.api-a-url.url=http://localhost:2222/

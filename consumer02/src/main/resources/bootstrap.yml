@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: consumerRibbon
+
+  cloud:
+    config:
+#      uri: http://localhost:18888/
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        service-id: config-server
+
+# 配置spring cloud bus总线程
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zkNodes: localhost:2181
+          defaultZkPort: 2181
+          defaultBrokerPort: 9092
+
+
+  zipkin:
+    base-url: http://192.168.0.110:8110
+  #通过配置spring.sleuth.sampler.percentage=0.1这个参数来决定了日志记录发送给采集器的概率，0-1交给使用者自己配置。
+  #开发阶段和运行初期，一般配置成1全量收集日志,到了上线后可以慢慢降低这一概率。
+  sleuth:
+    sampler:
+      percentage: 1
+
+server:
+  port: 8002
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}   #在UI界面以IP注册的形式显示
+  client:
+    service-url:
+      defaultZone: http://admin:admin@regiest01:10010/eureka/,http://admin:admin@regiest02:10020/eureka/,http://admin:admin@regiest03:10030/eureka/
+
+#安全相关
+management:
+  security:
+    enabled: false
