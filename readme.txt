@@ -1,10 +1,16 @@
-egister-center 即 eureka 注册中心
-service-api 为服务契约
-service-consumer 为服务消费方
-service-provider 为服务提供方
-
-
-detail:
+项目结构：
+    security-manager    安全管理  
+    regiest             为eureka注册中心(ha高可用),之后可用consul作为注册中心
+    service-api         为服务契约
+    service-provider    为服务提供方
+    service-consumer    为服务消费方
+    zuul-server         网关配置（可用Getway代替）
+    config-server       分布式配置文件管理（配合zk+kafka实现动态获取最新配置文件）
+    hystrix-monitor     熔断监控（单个服务的监控）
+    hystrix-turbine     熔断监控（多个服务同时监控）
+    sleuth-zipkin       调用链监控分析
+    
+模块组件说明：
 1、Spring Cloud Eureka：
     Eureka负责服务的注册于发现，如果学习过Zookeeper的话，就可以很好的理解，Eureka的角色和 Zookeeper的角色差不多，
     都是服务的注册和发现，构成Eureka体系的包括：服务注册中心、服务提供者、服务消费者。
@@ -21,7 +27,7 @@ detail:
 4、Spring Cloud Hystrix：
     hystrix 是一个专用于服务熔断处理的开源项目，当依赖的服务方出现故障不可用时，hystrix有一个所谓的断路器，
     一但打开，就会直接拦截掉对故障服务的调用，从而防止故障进一步扩大
-5、Spring Cloud Config：TODO ...
+5、Spring Cloud Config：
     为了方便服务配置文件统一管理，实时更新，所以需要分布式配置中心组件。在Spring Cloud中，
     有分布式配置中心组件Spring Cloud Config ，它支持配置服务放在配置服务的内存中（即本地），也支持放在远程Git仓库中。
     在Cpring Cloud Config 组件中，分两个角色，一是Config Server，二是Config Client。
