@@ -7,7 +7,7 @@ spring:
       server:
         git:
           uri: https://github.com/xianlongbai/springcloud-config
-#          search-paths: config-repo   #指定的是匹配查询的路径名
+  #        search-paths: config-repo   #指定的是匹配查询的路径名
   #公共仓库不用配置用户信息
   #        username: *****
   #        password: *****

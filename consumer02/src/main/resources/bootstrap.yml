@@ -23,7 +23,7 @@ spring:
 
 
   zipkin:
-    base-url: http://192.168.0.110:8110
+    base-url: http://localhost:8110
   #通过配置spring.sleuth.sampler.percentage=0.1这个参数来决定了日志记录发送给采集器的概率，0-1交给使用者自己配置。
   #开发阶段和运行初期，一般配置成1全量收集日志,到了上线后可以慢慢降低这一概率。
   sleuth:
