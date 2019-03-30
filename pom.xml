@@ -18,6 +18,7 @@
 		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
 		<spring-boot.version>1.5.10.RELEASE</spring-boot.version>
 		<junit.version>4.12</junit.version>
+		<spring-admin>1.5.7</spring-admin>
 	</properties>
 
 	<!--坑：这里的version 不能使用${spring-boot.version},除非将properties位置放在最上面-->
@@ -44,6 +45,7 @@
 		<module>hystrix-turbine</module>
 		<module>sleuth-zipkin</module>
 		<module>config-server</module>
+		<module>service-monitor</module>
 		<!--<module>reverse-proxy</module>-->
 	</modules>
 
@@ -56,6 +58,30 @@
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+				<version>1.5.10.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-server</artifactId>
+				<version>${spring-admin}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>${spring-admin}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jolokia</groupId>
+				<artifactId>jolokia-core</artifactId>
+				<version>1.5.0</version>
 			</dependency>
 
 			<!--<dependency>-->

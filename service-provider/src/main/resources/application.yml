@@ -8,3 +8,27 @@ spring:
       percentage: 1
 #  profiles:
 #    active: provider01    #active节点
+
+##运行状态 actuator监控
+info:
+  app:
+    name: provider
+    desc: we are provider
+    email: 16050973@qq.com
+
+endpoints:
+  enabled: true
+  shutdown:
+    enabled: true
+#  mappings:
+#    sensitive: false
+
+management:
+##服务路径
+#  context-path: /monitor
+##服务端口
+#  port: 19111
+##取消鉴权
+  security:
+    enabled: false
+

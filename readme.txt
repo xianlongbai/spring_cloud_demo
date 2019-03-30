@@ -9,6 +9,7 @@
     hystrix-monitor     熔断监控（单个服务的监控）
     hystrix-turbine     熔断监控（多个服务同时监控）
     sleuth-zipkin       调用链监控分析
+    service-monitor     整体微服务的监控以及服务异常通知（邮件通知）
     
 模块组件说明：
     1、Spring Cloud Eureka：
@@ -36,6 +37,8 @@
         可以相互发现，zuul能感知到哪些服务在线，同时通过配置路由规则（后面会给出示例），可以将请求自动转发到指定的后端微服务上，
         对于一些公用的预处理（比如：权限认证，token合法性校验，灰度验证时部分流量引导之类）,可以放在所谓的过滤器(ZuulFilter)里处理，
         这样后端服务以后新增了服务，zuul层几乎不用修改。
+    7、Spring Boot admin:
+        服务监控
 
 项目启动：
     1、eureka注册中心启动
@@ -153,7 +156,31 @@
               path: /api-b/**
               service-id: consumer-ribbon
         调用配置为降级服务的接口时，降级调用会有异常，待解决
-       
+
+     9、service-monitor启动（服务监控server端）
+       @EnableAdminServer  开启注解
+       其它服务均作为client端,需要被监控的加入spring-boot-admin-starter-client即可
+       邮件服务依赖：spring-boot-starter-mail
+       相关配置：
+           #邮件服务(bwprdikmarsobiij)
+           # SMTP服务器地址
+           spring.mail.host=smtp.qq.com
+           # SMTP服务器端口号 默认-1
+           # spring.mail.port=-1
+           # 发送方帐号
+           spring.mail.username=16050973@qq.com
+           # 发送方密码（授权码）
+           spring.mail.password=xxx
+           #javaMailProperties 配置
+           # 开启用户身份验证
+           spring.mail.properties.mail.smtp.auth=true
+           # STARTTLS：一种通信协议，具体可以搜索下
+           spring.mail.properties.mail.smtp.starttls.enable=true
+           spring.mail.properties.mail.smtp.starttls.required=true
+           # 服务重启发送邮件
+           spring.boot.admin.notify.mail.enabled=true
+           spring.boot.admin.notify.mail.from=16050973@qq.com
+           spring.boot.admin.notify.mail.to=xxx@qq.com
         
  	    
                 

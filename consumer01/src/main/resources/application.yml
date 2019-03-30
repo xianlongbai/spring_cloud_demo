@@ -18,3 +18,21 @@ eureka:
     service-url:
       defaultZone: http://admin:admin@regiest01:10010/eureka/,http://admin:admin@regiest02:10020/eureka/,http://admin:admin@regiest03:10030/eureka/
 
+#配置info信息
+info:
+  name: consumerfeign
+  version: @project.version@
+  email: 16050973@qq.com
+
+#配置优雅下线
+endpoints:
+  #开启节点是否可以访问,sensitive为false不需要授权
+  enabled: true
+  sensitive: false
+  shutdown:
+    enabled: true
+
+#取消鉴权
+management:
+  security:
+    enabled: false
