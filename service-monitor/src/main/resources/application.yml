@@ -9,7 +9,7 @@ spring:
         services: service-provider-demo,consumer-feign
       notify:
         mail:
-          enabled: true
+          enabled: false   #关闭通知
           from: 16050973@qq.com
           to: xxx
 

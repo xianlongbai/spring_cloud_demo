@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * <p>
  * zuul不仅只是路由，并且还能过滤，做一些安全验证等等
  */
-@Component
+//@Component
 public class MyFilter extends ZuulFilter {
 
     private static Logger log = LoggerFactory.getLogger(MyFilter.class);

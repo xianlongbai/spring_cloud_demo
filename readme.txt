@@ -38,7 +38,9 @@
         对于一些公用的预处理（比如：权限认证，token合法性校验，灰度验证时部分流量引导之类）,可以放在所谓的过滤器(ZuulFilter)里处理，
         这样后端服务以后新增了服务，zuul层几乎不用修改。
     7、Spring Boot admin:
-        服务监控
+        基于spring boot auactuator之上的可视化服务监控,对堆、栈、GC、线程、日志、接口响应延迟等一系列的监控
+    8、Swagger2：
+        配合zuul利用swagger2聚合API文档,便于整体查看各个微服务提供的接口服务及调用方式等
 
 项目启动：
     1、eureka注册中心启动
@@ -159,7 +161,7 @@
 
      9、service-monitor启动（服务监控server端）
        @EnableAdminServer  开启注解
-       其它服务均作为client端,需要被监控的加入spring-boot-admin-starter-client即可
+       其它服务均作为client端,需要被监控的加入spring-boot-admin-starter-client依赖即可
        邮件服务依赖：spring-boot-starter-mail
        相关配置：
            #邮件服务(bwprdikmarsobiij)
@@ -181,7 +183,17 @@
            spring.boot.admin.notify.mail.enabled=true
            spring.boot.admin.notify.mail.from=16050973@qq.com
            spring.boot.admin.notify.mail.to=xxx@qq.com
-        
+     10、Swagger2整合：
+        核心就是：处理方式就是在zuul所在的微服务中自定义resourceProvide类实现SwaggerResourceProvider接口，然后我们只要重写get方法
+        主要是get方法，代码主要把增加了各个系统的swaggerResource（数据访问来源），
+            SwaggerResource有三个参数，
+            第一个参数：名称，也就是之前那个下拉框的选择条名称
+            第二个参数：url，就是访问具体系统swagger的链接
+            第三个参数：version ，就是swagger的版本
+            之后就启动网关项目，访问网关项目的swagger地址就可以看到各个系统集中的api数据了
+        注意的一点：自定义的一些网关过滤器需要注意一下,比如访问接口必须要带token,会导致在http://127.0.0.1:8077/swagger-ui.html
+        页面无法跳转到其它服务的api文档查看页面
+
  	    
                 
     

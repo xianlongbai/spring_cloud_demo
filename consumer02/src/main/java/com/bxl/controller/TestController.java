@@ -1,4 +1,4 @@
-package com.bxl.Controller;
+package com.bxl.controller;
 
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
