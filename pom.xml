@@ -32,6 +32,7 @@
 	</parent>
 
 	<modules>
+		<module>boot-demo</module>
 		<module>regiest01</module>
 		<module>regiest02</module>
 		<module>server01</module>
@@ -96,6 +97,24 @@
 				<groupId>io.springfox</groupId>
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${spring-swagger2.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>4.3.14.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.9.2</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>1.9.2</version>
 			</dependency>
 
 			<!--<dependency>-->

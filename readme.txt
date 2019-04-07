@@ -10,6 +10,7 @@
     hystrix-turbine     熔断监控（多个服务同时监控）
     sleuth-zipkin       调用链监控分析
     service-monitor     整体微服务的监控以及服务异常通知（邮件通知）
+    boot-demo           做一些springboot相关的功能测试
     
 模块组件说明：
     1、Spring Cloud Eureka：
