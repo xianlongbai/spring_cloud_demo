@@ -1,6 +1,6 @@
 spring:
   application:
-    name: consumerRibbon
+    name: consumerRibbon2
 
   cloud:
     config:

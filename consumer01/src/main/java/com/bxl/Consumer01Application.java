@@ -1,5 +1,6 @@
 package com.bxl;
 
+import com.bxl.config.MySelfRule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -7,6 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,11 +20,13 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 
+//从Spring Cloud 1.0.0.RC1版本开始，就已经不推荐使用EnableEurekaClient和EnableHystrix了
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableCircuitBreaker  //熔断注解
 //@EnableHystrix   //其中包含@EnableCircuitBreaker
+@RibbonClient(name="SERVICE-PROVIDER-DEMO", configuration = MySelfRule.class)
 public class Consumer01Application {
 
 

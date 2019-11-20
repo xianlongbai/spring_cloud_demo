@@ -1,5 +1,7 @@
 package com.bxl.config;
 
+import com.netflix.loadbalancer.IRule;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -39,5 +41,9 @@ public class RestConfig {
         return restTemplate;
     }
 
+    @Bean
+    RestTemplate xxxrestTemplate() {
+        return new RestTemplate();
+    }
 
 }
