@@ -100,9 +100,8 @@
         注意：使用feign、Ribbon进行服务调用时，被调用服务名中不要带"_",负责会报错
     4、service-app、service-jx启动
         有多个客户端服务，它们有不同的依赖，如依赖远程配置文件
-        consumer1：
-        consumer2：zk+kafka+config-server
-        consumer3：zk+kafka+config-server
+        service-app：zk+kafka+config-server
+        service-jx：zk+kafka+config-server
         windows下简单启动：
         zk:配置好zk的环境变量，cmd 输入：zkServer启动
         kafka:启动kafka服务：.\bin\windows\kafka-server-start.bat .\config\server.properties
