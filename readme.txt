@@ -1,16 +1,20 @@
 项目结构：
     security-manager    安全管理
-    regiest             为eureka注册中心(ha高可用),之后可用consul作为注册中心
-    service-api         为服务契约
-    service-provider    为服务提供方
-    service-consumer    为服务消费方
-    zuul-server         网关配置（可用Getway代替）
-    config-server       分布式配置文件管理（配合zk+kafka实现动态获取最新配置文件）
+    regiest             为eureka注册中心(ha高可用),之后可用(consul、nacos)作为注册中心
+    zuul-server         网关配置（可用Getway代替，过滤、限流、权限验证等）
+    config-server       分布式配置文件管理（配合zk+kafka或者rabbitmq实现动态获取最新配置文件）
     hystrix-monitor     熔断监控（单个服务的监控）
-    hystrix-turbine     熔断监控（多个服务同时监控）
-    sleuth-zipkin       调用链监控分析
-    service-monitor     整体微服务的监控以及服务异常通知（邮件通知）
+    hystrix-turbine     熔断监控（多个服务同时监控,HALF_OPEN状态的理解）
+    sleuth-zipkin       调用链监控分析(traceId和spanId,同一条链路有相同的traceId,以及带有指向的spanId)
+    global-admin        整体微服务的监控以及服务异常通知（邮件通知）
     boot-demo           做一些springboot相关的功能测试
+服务：
+    common              公共依赖
+    service-user        用户服务     
+    service-app         app服务
+    service-jx          机型服务
+    service-order       订单服务
+    service-goods       商品服务
     
 模块组件说明：
     1、Spring Cloud Eureka：
@@ -91,9 +95,10 @@
         客戶端服務：
             将application.yml改为bootstrap.yml，原因是bootstrap.yml会在application.yml之前加载，为的是提前加载远程配置文件和一些初始化连接
 
-    3、service-provider启动
+    3、service-user启动
         配置不同端口，启动多个实例，达到服务的高可用
-    4、service-consumer启动
+        注意：使用feign、Ribbon进行服务调用时，被调用服务名中不要带"_",负责会报错
+    4、service-app、service-jx启动
         有多个客户端服务，它们有不同的依赖，如依赖远程配置文件
         consumer1：
         consumer2：zk+kafka+config-server
@@ -130,7 +135,7 @@
         熔断器的监控页面访问：http://localhost:9999/hystrix
         监控的服务（例）： http://localhost:9999/turbine.stream
         
-    7、sleuth-zipkin启动
+    7、sleuth-zipkin启动（根据traceId和spanId来追踪调用链的异常）
         服务调用链监控页面访问：localhost:8110/
         微服务端配置：
             zipkin:
@@ -158,9 +163,27 @@
             api-b:
               path: /api-b/**
               service-id: consumer-ribbon
-        调用配置为降级服务的接口时，降级调用会有异常，待解决
+        ##出现网关超时配置如下：
+           # 注意：hystrix的超时时间,这是因为zuul采用了懒加载机制，第一次访问的时候才会加载某些类，所以如果超时时间设置的太短会出现请求超时
+                的现象。
+            hystrix:
+              command:
+                default:
+                  execution:
+                    timeout:
+                      enabled: true
+                    isolation:
+                      thread:
+                        timeoutInMilliseconds: 3000
+            # zuul使用了ribbon做负载均衡
+            ribbon:
+              ConnectTimeout: 1000  #连接时间
+              ReadTimeout: 3000 #超时时间
+              MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+              MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+              OkToRetryOnAllOperations: false  #是否所有操作都重试
 
-     9、service-monitor启动（服务监控server端）
+     9、global-admin启动（服务监控server端）
        @EnableAdminServer  开启注解
        其它服务均作为client端,需要被监控的加入spring-boot-admin-starter-client依赖即可
        邮件服务依赖：spring-boot-starter-mail
