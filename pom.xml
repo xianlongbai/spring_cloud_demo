@@ -32,23 +32,41 @@
 	</parent>
 
 	<modules>
+		<!--公共模块-->
+		<module>common</module>
+		<!--整体服务监控-->
+		<module>global-admin</module>
+		<!--springboot单体应用-->
 		<module>boot-demo</module>
-		<module>regiest01</module>
-		<module>regiest02</module>
-		<module>server01</module>
-		<module>server02</module>
-		<module>Consumer01</module>
-		<module>Consumer02</module>
-		<module>consumer03</module>
-		<module>service-api</module>
-		<module>service-provider</module>
-		<module>hystrix-monitor</module>
-		<module>zuul-server</module>
-		<module>security-manager</module>
-		<module>hystrix-turbine</module>
-		<module>sleuth-zipkin</module>
+		<!--eureka注册中心-->
+		<module>registry</module>
+		<!--动态配置服务-->
 		<module>config-server</module>
-		<module>service-monitor</module>
+		<!--调用链监控-->
+		<module>sleuth-zipkin</module>
+		<!--熔断监控-->
+		<module>hystrix-monitor</module>
+		<!--熔断聚合监控-->
+		<module>hystrix-turbine</module>
+		<!--权限控制-->
+		<module>security-manager</module>
+		<!--网关服务-->
+		<module>zuul-server</module>
+		<!--机型相关服务-->
+		<module>service-jx</module>
+		<!--app相关服务-->
+		<module>service-app</module>
+		<!--用户相关服务-->
+		<module>service-user</module>
+		<!--订单相关服务-->
+		<module>service-order</module>
+		<!--商品相关服务-->
+		<module>service-goods</module>
+
+
+
+		<module>server02</module>
+		<module>consumer03</module>
 		<!--<module>reverse-proxy</module>-->
 	</modules>
 

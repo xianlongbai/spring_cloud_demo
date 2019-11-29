@@ -17,16 +17,44 @@ eureka:
 #其实zuul实现负载均衡很简单，使用serviceId进行绑定后，如果有多个相同的serviceid，
 #则会进行轮询的方式进行访问。这个在下文会有具体的结果截图。
 zuul:
+  host:
+    socket-timeout-millis: 1000
+    connect-timeout-millis: 1000
   routes:
-    api-a:
-      path: /api-a/**
-      service-id: consumer-feign
+    api-user:
+      path: /api-user/**
+      service-id: service-user
+      #解决http请求头为空的问题 (值为空就好了)
       sensitive-headers:
-    api-b:
-      path: /api-b/**
-      service-id: consumer-ribbon
+      ignored-headers:
+#    api-b:
+#      path: /api-b/**
+#      service-id: consumer-ribbon
 
 
-# routes to url  这里是绑定具体的ip地址
+# routes to url  这里是绑定具体的ip地址，不推荐
 # zuul.routes.api-a-url.path=/api-a-url/**
 # zuul.routes.api-a-url.url=http://localhost:2222/
+
+# 注意：hystrix的超时时间,这是因为zuul采用了懒加载机制，第一次访问的时候才会加载某些类，所以如果超时时间设置的太短会出现请求超时的现象
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+# zuul使用了ribbon做负载均衡
+ribbon:
+  ConnectTimeout: 1000  #连接时间
+  ReadTimeout: 3000 #超时时间
+  MaxAutoRetries: 1 #同一台实例最大重试次数,不包括首次调用
+  MaxAutoRetriesNextServer: 1 #重试负载均衡其他的实例最大重试次数,不包括首次调用
+  OkToRetryOnAllOperations: false  #是否所有操作都重试
+
+#解决hystrix+feign超时设置
+feign:
+  hystrix: #开启feign支持hystrix (注意:一定要开启，旧版本默认支持，新版本默认关闭)
+    enabled: false

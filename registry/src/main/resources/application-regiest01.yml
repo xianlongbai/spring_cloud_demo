@@ -1,0 +1,36 @@
+server:
+  port: 10010 # 注册中心占用8080端口
+
+eureka:
+  instance:
+    #    appname: service-center
+    hostname: regiest01  #实例的主机名(本地访问可以使用localhost)
+    prefer-ip-address: true   #开启以ip注册（但显示还是机器名）
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #在UI界面以IP注册的形式显示
+    #instance-id: ${spring.application.name}:${server.port}   #在UI界面以机器名注册的形式显示
+
+
+
+    #lease-renewal-interval-in-seconds: 5  #心跳间隔5秒
+    #lease-expiration-duration-in-seconds: 5   #没有心跳的淘汰时间5秒
+
+
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@regiest02:10020/eureka/,http://admin:admin@regiest03:10030/eureka/  #指定注册中心,其实就是 http://localhost:8080/eureka/
+
+#    registerWithEureka: false  #设置是否向注册中心注册，默认是true
+#    fetchRegistry: false    #是否需要去检索寻找服务，默认是true
+
+  server:
+#    eviction-interval-timer-in-ms: 5000  #Eureka服务器清理无效节点的时间间隔，单位：毫秒，缺省：60000，即60秒
+#    use-read-only-response-cache: false  #是否允许开启自我保护模式，缺省：true
+    enable-self-preservation: false   #关闭自我保护,缺省：true
+
+#注册中心安全登录认证
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: admin

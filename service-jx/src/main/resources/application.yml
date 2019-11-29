@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: "service-jx"
+  zipkin:
+    base-url: http://localhost:8110
+  sleuth:
+    sampler:
+      percentage: 1
+  profiles:
+    active: jx01    #active节点
+
+
+##### 监控相关
+##运行状态 actuator监控
+info:
+  app:
+    name: service-jx
+    desc: 机型服务
+    email: 16050973@qq.com
+
+endpoints:
+  enabled: true
+  shutdown:
+    enabled: true
+#  mappings:
+#    sensitive: false
+
+management:
+##服务路径
+#  context-path: /monitor
+##服务端口
+#  port: 19111
+##取消鉴权
+  security:
+    enabled: false
+

@@ -7,6 +7,10 @@ spring:
       server:
         git:
           uri: https://github.com/xianlongbai/springcloud-config
+          # 本地仓库目录设定(本地會保留緩存文件)
+          basedir: D:/idea_repository/config-cache
+          # 本地仓库如果有脏数据，则会强制拉取（默认是false）
+          force-pull: true
   #        search-paths: config-repo   #指定的是匹配查询的路径名
   #公共仓库不用配置用户信息
   #        username: *****

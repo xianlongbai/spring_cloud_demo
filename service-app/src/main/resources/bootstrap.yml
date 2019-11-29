@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: "serviceapp"
+  zipkin:
+    base-url: http://localhost:8110
+  sleuth:
+    sampler:
+      percentage: 1
+#  profiles:
+#    active: app01    #active节点
+  cloud:
+    config:
+      # uri: http://localhost:18888/
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        service-id: config-server
+    # 配置spring cloud bus总线程
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost:9092
+          zkNodes: localhost:2181
+          defaultZkPort: 2181
+          defaultBrokerPort: 9092
+
+##### 监控相关
+##运行状态 actuator监控
+info:
+  app:
+    name: serviceapp
+    desc: app服务
+    email: 16050973@qq.com
+
+endpoints:
+  enabled: true
+  shutdown:
+    enabled: true
+#  mappings:
+#    sensitive: false
+
+management:
+##服务路径
+#  context-path: /monitor
+##服务端口
+#  port: 19111
+##取消鉴权
+  security:
+    enabled: false
+

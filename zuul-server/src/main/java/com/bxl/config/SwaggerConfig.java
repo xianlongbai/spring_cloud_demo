@@ -50,6 +50,7 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
                 .enable(true).select()
                 // 扫描的路径包
                 .apis(RequestHandlerSelectors.basePackage("com.bxl.controller"))
+                //.apis(RequestHandlerSelectors.basePackage("com.bxl.api"))
                 // 指定路径处理PathSelectors.any()代表所有的路径
                 .paths(PathSelectors.any()).build().pathMapping("/");
     }
@@ -78,7 +79,7 @@ public class SwaggerConfig implements SwaggerResourcesProvider {
 //方式二：循环 使用Lambda表达式简化代码
         routeLocator.getRoutes().forEach(route ->{
             //动态获取
-            resources.add(swaggerResource(route.getId(),route.getFullPath().replace("**", "v2/api-docs"), "2.0"));
+            resources.add(swaggerResource(route.getId(),route.getFullPath().replace("**", "v2/api-docs?token=123"), "2.0"));
         });
 
 //方式二：也可以直接 继承 Consumer接口
